@@ -15,8 +15,8 @@ function Get-DigitalOceanAccount {
             "Authorization" =  "Bearer $Token"
             "Content-Type" = "application/json"
         }
-        $response = Invoke-WebRequest -Headers $headers "https://api.digitalocean.com/v2/account"
-        $account = ($response.Content | ConvertFrom-Json).account
+        $response = Invoke-RestMethod -Headers $headers "https://api.digitalocean.com/v2/account"
+        $account = $response.account
         @{
             DropletLimit = $account.droplet_limit
             FloatingIpLimit = $account.floating_ip_limit
