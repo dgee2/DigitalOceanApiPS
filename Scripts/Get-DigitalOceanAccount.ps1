@@ -17,7 +17,7 @@ function Get-DigitalOceanAccount {
         }
         $response = Invoke-RestMethod -Headers $headers "https://api.digitalocean.com/v2/account"
         $account = $response.account
-        @{
+        New-Object PSObject -Property @{
             DropletLimit = $account.droplet_limit
             FloatingIpLimit = $account.floating_ip_limit
             Email = $account.email
