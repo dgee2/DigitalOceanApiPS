@@ -69,5 +69,10 @@ Describe 'Get-DigitalOceanActions' {
                 $response.Actions[0].Region | Should -Be $testAction.region_slug
             }
         }
+        Context 'TotalCount'{
+            It 'Parses  TotalCount correctly'{
+                $response.TotalCount | Should -Be $testResponse.meta.total
+            }
+        }
  	}
 }

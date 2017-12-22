@@ -32,6 +32,7 @@ function Get-DigitalOceanActions {
 
         $properties = @{
             Actions = $actions
+            TotalCount = $response.meta.total
         }
 
         New-Object PSObject -Property $properties
