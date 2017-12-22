@@ -36,7 +36,21 @@ Describe 'Get-DigitalOceanActions' {
  	 	It 'Sends to the correct url'{
  	 	 	Assert-MockCalled Invoke-RestMethod -Exactly 1 -ParameterFilter { $uri -eq 'https://api.digitalocean.com/v2/actions' }
  	 	}
- 	}
+        Context 'Paging'{
+            It 'Calls correct url for page'{
+                Get-DigitalOceanActions -Token $testToken -Page 15
+                Assert-MockCalled Invoke-RestMethod -Exactly 1 -ParameterFilter { $uri -eq 'https://api.digitalocean.com/v2/actions?page=15' }
+            }
+            It 'Calls correct url for per page'{
+                Get-DigitalOceanActions -Token $testToken -PerPage 23
+                Assert-MockCalled Invoke-RestMethod -Exactly 1 -ParameterFilter { $uri -eq 'https://api.digitalocean.com/v2/actions?per_page=23' }
+            }
+            It 'Calls correct url for per page and page'{
+                Get-DigitalOceanActions -Token $testToken -Page 15 -PerPage 23
+                Assert-MockCalled Invoke-RestMethod -Exactly 1 -ParameterFilter { $uri -eq 'https://api.digitalocean.com/v2/actions?page=15&per_page=23' }
+            }
+        }
+    }
  	Context 'Response' {
         $response = Get-DigitalOceanActions -Token $testToken
 
@@ -67,6 +81,11 @@ Describe 'Get-DigitalOceanActions' {
             }
             It 'Parses Region correctly'{
                 $response.Actions[0].Region | Should -Be $testAction.region_slug
+            }
+        }
+        Context 'TotalCount'{
+            It 'Parses TotalCount correctly'{
+                $response.TotalCount | Should -Be $testResponse.meta.total
             }
         }
  	}

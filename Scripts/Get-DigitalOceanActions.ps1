@@ -4,7 +4,15 @@ function Get-DigitalOceanActions {
         # Parameter help description
         [Parameter(Mandatory=$true)]
         [string]
-        $Token
+        $Token,
+        # Parameter help description
+        [Parameter(Mandatory=$false)]
+        [int]
+        $Page,
+        # Parameter help description
+        [Parameter(Mandatory=$false)]
+        [int]
+        $PerPage
     )
     
     begin {
@@ -15,7 +23,22 @@ function Get-DigitalOceanActions {
             "Authorization" =  "Bearer $Token"
             "Content-Type" = "application/json"
         }
-        $response = Invoke-RestMethod -Headers $headers "https://api.digitalocean.com/v2/actions"
+
+        $uri = "https://api.digitalocean.com/v2/actions"
+
+        $query = @{}
+
+        if ($Page -gt 0) {
+            $query.page = $Page
+        }
+        if ($PerPage -gt 0) {
+            $query.per_page = $PerPage
+        }
+        if($query.Count -gt 0) {
+            $uri += '?' + (($query.Keys | ForEach-Object { [uri]::EscapeDataString($_) + '=' + [uri]::EscapeDataString($query.$_) }) -join '&')
+        }
+
+        $response = Invoke-RestMethod -Headers $headers $uri
 
         $actions = $response.actions | ForEach-Object {
             New-Object PSObject -Property @{
@@ -32,6 +55,7 @@ function Get-DigitalOceanActions {
 
         $properties = @{
             Actions = $actions
+            TotalCount = $response.meta.total
         }
 
         New-Object PSObject -Property $properties
