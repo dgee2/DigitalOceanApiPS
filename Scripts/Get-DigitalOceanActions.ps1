@@ -1,3 +1,5 @@
+. $PSScriptRoot/Internal/ConvertTo-DigitalOceanAction.ps1
+
 function Get-DigitalOceanActions {
     [CmdletBinding()]
     param (
@@ -40,18 +42,7 @@ function Get-DigitalOceanActions {
 
         $response = Invoke-RestMethod -Headers $headers $uri
 
-        $actions = $response.actions | ForEach-Object {
-            New-Object PSObject -Property @{
-                Id = $_.id
-                Status = $_.status
-                Type = $_.type
-                StartedAt = [datetime]$_.started_at
-                CompletedAt = [datetime]$_.completed_at
-                ResourceId = $_.resource_id
-                ResourceType = $_.resource_type
-                Region = $_.region_slug
-            }
-        }
+        $actions = $response.actions | ConvertTo-DigitalOceanAction
 
         $properties = @{
             Actions = $actions
