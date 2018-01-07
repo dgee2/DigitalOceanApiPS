@@ -1,6 +1,6 @@
 . $PSScriptRoot/Internal/ConvertTo-DigitalOceanAction.ps1
 
-function Get-DigitalOceanActions {
+function Get-DigitalOceanAction {
     [CmdletBinding()]
     param (
         # Parameter help description
@@ -10,11 +10,7 @@ function Get-DigitalOceanActions {
         # Parameter help description
         [Parameter(Mandatory=$false)]
         [int]
-        $Page,
-        # Parameter help description
-        [Parameter(Mandatory=$false)]
-        [int]
-        $PerPage
+        $Id
     )
     
     begin {
@@ -26,7 +22,7 @@ function Get-DigitalOceanActions {
             "Content-Type" = "application/json"
         }
 
-        $uri = "https://api.digitalocean.com/v2/actions"
+        $uri = "https://api.digitalocean.com/v2/actions/$Id"
 
         $query = @{}
 
@@ -42,14 +38,7 @@ function Get-DigitalOceanActions {
 
         $response = Invoke-RestMethod -Headers $headers $uri
 
-        $actions = $response.actions | ConvertTo-DigitalOceanAction
-
-        $properties = @{
-            Actions = $actions
-            TotalCount = $response.meta.total
-        }
-
-        New-Object PSObject -Property $properties
+        $response.action | ConvertTo-DigitalOceanAction
     }
     
     end {
