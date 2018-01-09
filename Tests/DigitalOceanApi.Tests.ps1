@@ -1,4 +1,4 @@
-Import-Module $PSScriptRoot/../DigitalOceanApi.psm1
+Import-Module $PSScriptRoot/../DigitalOceanApi.psd1
 
 $expectedCommands = @(
     'Get-DigitalOceanAccount'
