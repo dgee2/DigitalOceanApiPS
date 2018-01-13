@@ -1,3 +1,4 @@
-. $PSScriptRoot/Scripts/Get-DigitalOceanAccount.ps1
-. $PSScriptRoot/Scripts/Get-DigitalOceanAction.ps1
-. $PSScriptRoot/Scripts/Get-DigitalOceanActions.ps1
+# load all script files
+Get-ChildItem $PSScriptRoot/Scripts -File -Recurse | ForEach-Object {
+    Import-Module $_.FullName
+ }
