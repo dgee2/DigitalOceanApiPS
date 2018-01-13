@@ -1,4 +1,5 @@
-. $PSScriptRoot/../Scripts/Get-DigitalOceanAction.ps1
+. $PSScriptRoot/../ModuleLoader.ps1
+
 $id = 36804636
 $testAction = @{
     id = $id

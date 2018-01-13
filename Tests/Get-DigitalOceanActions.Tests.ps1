@@ -1,4 +1,5 @@
-. $PSScriptRoot/../Scripts/Get-DigitalOceanActions.ps1
+. $PSScriptRoot/../ModuleLoader.ps1
+
 $testAction = @{
     id = 36804636
     status = 'completed'
