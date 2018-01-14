@@ -3,7 +3,6 @@ Import-Module $PSScriptRoot/../DigitalOceanApi.psd1
 $expectedCommands = @(
     'Get-DigitalOceanAccount'
     'Get-DigitalOceanAction'
-    'Get-DigitalOceanActions'
 )
 
 Describe 'DigitalOceanApi Module' {
