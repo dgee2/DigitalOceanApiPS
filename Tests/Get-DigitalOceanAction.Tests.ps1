@@ -34,7 +34,7 @@ $testResponse = @{
 $testToken = "$((new-guid).guid -replace @('-',''))$((new-guid).guid -replace @('-',''))"
 
 Describe 'Get-DigitalOceanAction' {
-    Describe 'ID Parameter Set' {
+    Context 'ID Parameter Set' {
         Mock Invoke-RestMethod -ParameterFilter {$uri -eq "https://api.digitalocean.com/v2/actions/$id"} -MockWith {$testResponse}
         Context 'Request'{
             Get-DigitalOceanAction -Token $testToken -Id $id
@@ -74,7 +74,7 @@ Describe 'Get-DigitalOceanAction' {
             }
         }
     }
-    Describe 'Default Parameter Set' {
+    Context 'Default Parameter Set' {
         Mock Invoke-RestMethod -MockWith {$testListResponse}
         Context 'Request'{
                 Get-DigitalOceanAction -Token $testToken
