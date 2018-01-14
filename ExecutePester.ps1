@@ -14,4 +14,4 @@ $resultsFile = "$BuildSourcesDirectory\Test-Pester.XML"
 
  $Files = Get-ChildItem -Path $scriptFolder -include *.ps1, *.psm1 -Exclude *.Tests.ps1 -Recurse | Select-object -ExpandProperty Fullname
 
-Invoke-Pester -OutputFile $resultsFile -OutputFormat 'NUnitXml' -Script $scriptFolder -PassThru -EnableExit -CodeCoverage $Files -CodeCoverageOutputFile $CodeCoverageOutputFile
+Invoke-Pester -OutputFile $resultsFile -OutputFormat 'NUnitXml' -Script $scriptFolder -CodeCoverage $Files -CodeCoverageOutputFile $CodeCoverageOutputFile -EnableExit
