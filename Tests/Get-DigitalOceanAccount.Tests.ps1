@@ -1,4 +1,4 @@
-. $PSScriptRoot/../Scripts/Get-DigitalOceanAccount.ps1
+. $PSScriptRoot/../ModuleLoader.ps1
 
 $testResponse = @{
     account=@{
