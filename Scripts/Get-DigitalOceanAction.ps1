@@ -12,11 +12,11 @@ function Get-DigitalOceanAction {
         [int]
         $Id,
         # Parameter help description
-        [Parameter(Mandatory=$false,ParameterSetName='Default')]
+        [Parameter(Mandatory=$false,ParameterSetName='Paging')]
         [int]
         $Page,
         # Parameter help description
-        [Parameter(Mandatory=$false,ParameterSetName='Default')]
+        [Parameter(Mandatory=$false,ParameterSetName='Paging')]
         [int]
         $PerPage
     )
@@ -38,7 +38,7 @@ function Get-DigitalOceanAction {
 
         $query = @{}
 
-        if($PSCmdlet.ParameterSetName -eq 'Default') {
+        if($PSCmdlet.ParameterSetName -eq 'Paging') {
             if ($Page -gt 0) {
                 $query.page = $Page
             }
