@@ -1,9 +1,16 @@
+param (
+    # Parameter help description
+    [Parameter(Mandatory=$true)]
+    [string]
+    $BuildSourcesDirectory
+)
+
 Install-Module -Name Pester -Force -Scope CurrentUser -SkipPublisherCheck
 Install-Module -Name PSScriptAnalyzer -Force -Scope CurrentUser
 
-$scriptFolder = "$(Build.SourcesDirectory)"
-$CodeCoverageOutputFile = "$(Build.SourcesDirectory)\CodeCoverage-Pester.XML"
-$resultsFile = "$(Build.SourcesDirectory)\Test-Pester.XML"
+$scriptFolder = "$BuildSourcesDirectory"
+$CodeCoverageOutputFile = "$BuildSourcesDirectory\CodeCoverage-Pester.XML"
+$resultsFile = "$BuildSourcesDirectory\Test-Pester.XML"
 
 $Parameters = @{
     OutputFile = $resultsFile
