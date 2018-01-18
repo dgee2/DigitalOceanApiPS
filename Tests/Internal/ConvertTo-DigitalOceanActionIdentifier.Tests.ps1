@@ -1,4 +1,4 @@
-. $PSScriptRoot/../../Scripts/Internal/ConvertTo-DigitalOceanActionIdentifier.ps1
+. $PSScriptRoot/../../Module/Scripts/Internal/ConvertTo-DigitalOceanActionIdentifier.ps1
 $rawObject = @{
     id = 36805096
     rel = "create"

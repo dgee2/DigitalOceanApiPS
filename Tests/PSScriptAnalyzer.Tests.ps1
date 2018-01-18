@@ -1,6 +1,6 @@
 Describe 'PSScriptAnalyzer' -Tag 'PSScriptAnalyzer' {
        Context 'Standard Rules' {
-        $analysis = Invoke-ScriptAnalyzer -Path $PSScriptRoot/../Scripts -IncludeDefaultRules -Recurse
+        $analysis = Invoke-ScriptAnalyzer -Path $PSScriptRoot/.. -IncludeDefaultRules -Recurse
         $scriptAnalyzerRules = Get-ScriptAnalyzerRule
  
         forEach ($rule in $scriptAnalyzerRules) {

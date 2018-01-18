@@ -1,4 +1,4 @@
-. $PSScriptRoot/../ModuleLoader.ps1
+. $PSScriptRoot/../Module/ModuleLoader.ps1
 
 $testResponse = @{
     account=@{
