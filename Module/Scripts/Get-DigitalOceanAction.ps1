@@ -1,5 +1,3 @@
-. $PSScriptRoot/Internal/ConvertTo-DigitalOceanAction.ps1
-
 function Get-DigitalOceanAction {
     [CmdletBinding(DefaultParameterSetName='Default')]
     param (
@@ -25,15 +23,9 @@ function Get-DigitalOceanAction {
     }
     
     process {
-        $headers = @{ 
-            "Authorization" =  "Bearer $Token"
-            "Content-Type" = "application/json"
-        }
-
+        $uri = "actions"
         if($PSCmdlet.ParameterSetName -eq 'ID'){
-            $uri = "https://api.digitalocean.com/v2/actions/$Id"
-        } else {
-            $uri = "https://api.digitalocean.com/v2/actions"
+            $uri += "/$Id"
         }
 
         $query = @{}
@@ -50,7 +42,7 @@ function Get-DigitalOceanAction {
             }
         }
 
-        $response = Invoke-RestMethod -Headers $headers $uri
+        $response = Invoke-DigitalOceanApiCall -Token $Token -Url $uri
 
         if($PSCmdlet.ParameterSetName -eq 'ID'){
             $response.action | ConvertTo-DigitalOceanAction

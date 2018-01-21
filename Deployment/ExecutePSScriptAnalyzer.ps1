@@ -8,5 +8,12 @@ param (
 Install-Module -Name Pester -Force -Scope CurrentUser -SkipPublisherCheck
 Install-Module -Name PSScriptAnalyzer -Force -Scope CurrentUser
 
+$parameters = @{
+    OutputFile="$BuildSourcesDirectory\Test-PSScriptAnalyzer.XML";
+    Tag = 'PSScriptAnalyzer';
+    Script = "$PSScriptRoot\..\Tests";
+    EnableExit = $true;
+}
+
 # PSScriptAnalyzer Tests
-Invoke-Pester -OutputFile "$BuildSourcesDirectory\Test-PSScriptAnalyzer.XML" -OutputFormat 'NUnitXml' -Script $BuildSourcesDirectory -Tag 'PSScriptAnalyzer' -EnableExit
+Invoke-Pester @parameters

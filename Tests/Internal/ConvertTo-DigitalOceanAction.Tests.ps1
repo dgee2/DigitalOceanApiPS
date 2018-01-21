@@ -1,4 +1,4 @@
-. $PSScriptRoot/../../Scripts/Internal/ConvertTo-DigitalOceanAction.ps1
+. $PSScriptRoot/../../Module/Scripts/Internal/ConvertTo-DigitalOceanAction.ps1
 $rawObject = @{
     id = 36804636
     status = 'completed'
