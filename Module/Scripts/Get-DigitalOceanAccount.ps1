@@ -11,11 +11,7 @@ function Get-DigitalOceanAccount {
     }
     
     process {
-        $headers = @{ 
-            "Authorization" =  "Bearer $Token"
-            "Content-Type" = "application/json"
-        }
-        $response = Invoke-RestMethod -Headers $headers "https://api.digitalocean.com/v2/account"
+        $response = Invoke-DigitalOceanApiCall -Token $Token -Url "account"
         $account = $response.account
         New-Object PSObject -Property @{
             DropletLimit = $account.droplet_limit
