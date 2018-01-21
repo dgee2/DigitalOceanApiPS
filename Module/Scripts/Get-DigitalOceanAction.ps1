@@ -1,5 +1,3 @@
-. $PSScriptRoot/Internal/ConvertTo-DigitalOceanAction.ps1
-
 function Get-DigitalOceanAction {
     [CmdletBinding(DefaultParameterSetName='Default')]
     param (
