@@ -35,14 +35,14 @@ $testToken = "$((new-guid).guid -replace @('-',''))$((new-guid).guid -replace @(
 
 Describe 'Get-DigitalOceanAction' {
     Context 'ID Parameter Set' {
-        Mock Invoke-RestMethod -MockWith {$testResponse}
+        Mock Invoke-DigitalOceanApiCall -MockWith {$testResponse}
         Context 'Request'{
             Get-DigitalOceanAction -Token $testToken -Id $id
-            It 'Passes the authorization header'{
-                Assert-MockCalled Invoke-RestMethod -Exactly 1 -ParameterFilter { $headers.Keys -contains 'Authorization' -and $headers.Authorization -eq "Bearer $testToken"}
+            It 'Passes the correct token'{
+                Assert-MockCalled Invoke-DigitalOceanApiCall -Exactly 1 -ParameterFilter { $Token -eq $testToken }
             }
             It 'Sends to the correct url'{
-                Assert-MockCalled Invoke-RestMethod -Exactly 1 -ParameterFilter { $uri -eq "https://api.digitalocean.com/v2/actions/$id" }
+                Assert-MockCalled Invoke-DigitalOceanApiCall -Exactly 1 -ParameterFilter { $Url -eq "actions/$id" }
             }
         }
         Context 'Response' {
@@ -75,27 +75,27 @@ Describe 'Get-DigitalOceanAction' {
         }
     }
     Context 'Default Parameter Set' {
-        Mock Invoke-RestMethod -MockWith {$testListResponse}
+        Mock Invoke-DigitalOceanApiCall -MockWith {$testListResponse}
         Context 'Request'{
-                Get-DigitalOceanAction -Token $testToken
-                It 'Passes the authorization header'{
-                    Assert-MockCalled Invoke-RestMethod -Exactly 1 -ParameterFilter { $headers.Keys -contains 'Authorization' -and $headers.Authorization -eq "Bearer $testToken"}
-                }
-                It 'Sends to the correct url'{
-                    Assert-MockCalled Invoke-RestMethod -Exactly 1 -ParameterFilter { $uri -eq 'https://api.digitalocean.com/v2/actions' }
-                }
+            Get-DigitalOceanAction -Token $testToken
+            It 'Passes the correct token'{
+                Assert-MockCalled Invoke-DigitalOceanApiCall -Exactly 1 -ParameterFilter { $Token -eq $testToken }
+            }
+            It 'Sends to the correct url'{
+                Assert-MockCalled Invoke-DigitalOceanApiCall -Exactly 1 -ParameterFilter { $Url -eq 'actions' }
+            }
             Context 'Paging'{
                 It 'Calls correct url for page'{
                     Get-DigitalOceanAction -Token $testToken -Page 15
-                    Assert-MockCalled Invoke-RestMethod -Exactly 1 -ParameterFilter { $uri -eq 'https://api.digitalocean.com/v2/actions?page=15' }
+                    Assert-MockCalled Invoke-DigitalOceanApiCall -Exactly 1 -ParameterFilter { $Url -eq 'actions?page=15' }
                 }
                 It 'Calls correct url for per page'{
                     Get-DigitalOceanAction -Token $testToken -PerPage 23
-                    Assert-MockCalled Invoke-RestMethod -Exactly 1 -ParameterFilter { $uri -eq 'https://api.digitalocean.com/v2/actions?per_page=23' }
+                    Assert-MockCalled Invoke-DigitalOceanApiCall -Exactly 1 -ParameterFilter { $Url -eq 'actions?per_page=23' }
                 }
                 It 'Calls correct url for per page and page'{
                     Get-DigitalOceanAction -Token $testToken -Page 15 -PerPage 23
-                    Assert-MockCalled Invoke-RestMethod -Exactly 1 -ParameterFilter { $uri -eq 'https://api.digitalocean.com/v2/actions?page=15&per_page=23' }
+                    Assert-MockCalled Invoke-DigitalOceanApiCall -Exactly 1 -ParameterFilter { $Url -eq 'actions?page=15&per_page=23' }
                 }
             }
         }

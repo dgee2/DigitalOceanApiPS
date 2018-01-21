@@ -14,14 +14,14 @@ $testResponse = @{
 $testToken = "$((new-guid).guid -replace @('-',''))$((new-guid).guid -replace @('-',''))"
 
 Describe 'Get-DigitalOceanAccount' {
-    Mock Invoke-RestMethod -MockWith {$testResponse}
+    Mock Invoke-DigitalOceanApiCall -MockWith {$testResponse}
     Context 'Request'{
         Get-DigitalOceanAccount -Token $testToken
         It 'Passes the authorization header'{
-            Assert-MockCalled Invoke-RestMethod -Exactly 1 -ParameterFilter { $headers.Keys -contains 'Authorization' -and $headers.Authorization -eq "Bearer $testToken"}
+            Assert-MockCalled Invoke-DigitalOceanApiCall -Exactly 1 -ParameterFilter { $Token -eq $testToken }
         }
         It 'Sends to the correct url'{
-            Assert-MockCalled Invoke-RestMethod -Exactly 1 -ParameterFilter { $uri -eq 'https://api.digitalocean.com/v2/account' }
+            Assert-MockCalled Invoke-DigitalOceanApiCall -Exactly 1 -ParameterFilter { $Url -eq 'account' }
         }
     }
     Context 'Response' {
