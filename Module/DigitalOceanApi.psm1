@@ -1,1 +1,4 @@
-. $PSScriptRoot/ModuleLoader.ps1
+# load all script files
+Get-ChildItem $PSScriptRoot/Scripts -File -Recurse | ForEach-Object {
+    . $_.FullName
+}
