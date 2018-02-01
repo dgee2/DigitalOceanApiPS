@@ -9,10 +9,11 @@ function ConvertTo-DigitalOceanActionIdentifier {
     begin {
     }
     process {
-        New-Object PSObject -Property @{
-            Id = $rawObject.id
-            Type = $rawObject.rel
-        }
+        $ret = [DigitalOceanActionIdentifier]::new()
+        $ret.Id = $rawObject.id
+        $ret.Type = $rawObject.rel
+
+        $ret
     }
     end {
     }
