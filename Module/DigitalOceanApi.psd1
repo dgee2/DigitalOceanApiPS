@@ -69,7 +69,7 @@ Description = 'A PowerShell module providing commands to interact with the Digit
 # NestedModules = @()
 
 # Functions to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no functions to export.
-FunctionsToExport = 'Get-DigitalOceanAccount', 'Get-DigitalOceanAction'
+FunctionsToExport = 'Get-DigitalOceanAccount', 'Get-DigitalOceanAction', 'Get-DigitalOceanDroplet'
 
 # Cmdlets to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no cmdlets to export.
 CmdletsToExport = @()
