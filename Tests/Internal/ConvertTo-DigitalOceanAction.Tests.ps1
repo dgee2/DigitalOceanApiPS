@@ -1,3 +1,4 @@
+Import-Module $PSScriptRoot/../../Module/DigitalOceanApi.psd1
 . $PSScriptRoot/../../Module/Scripts/Internal/ConvertTo-DigitalOceanAction.ps1
 $rawObject = @{
     id = 36804636
@@ -14,6 +15,9 @@ Describe 'ConvertTo-DigitalOceanAction' {
     Context 'Passed Single rawObject'{
         $result = ConvertTo-DigitalOceanAction $rawObject
 
+        It 'Returns a DigitalOceanAction instance'{
+            $result.GetType() | Should -Be 'DigitalOceanAction'
+        }
         It 'Parses Id correctly'{
             $result.Id | Should -Be $rawObject.id
         }
@@ -42,6 +46,9 @@ Describe 'ConvertTo-DigitalOceanAction' {
     Context 'Passed pipeline rawObject'{
         $result = $rawObject | ConvertTo-DigitalOceanAction
 
+        It 'Returns a DigitalOceanAction instance'{
+            $result.GetType() | Should -Be 'DigitalOceanAction'
+        }
         It 'Parses Id correctly'{
             $result.Id | Should -Be $rawObject.id
         }
