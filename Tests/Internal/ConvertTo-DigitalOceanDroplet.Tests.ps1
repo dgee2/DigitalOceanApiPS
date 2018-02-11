@@ -140,7 +140,7 @@ Describe 'ConvertTo-DigitalOceanDroplet' {
             $result.CreatedAt.GetType() | Should -Be 'DateTime'
         }
         It 'Parses CreatedAt correctly'{
-            $result.CreatedAt | Should -Be ([datetime]$rawObject.started_at)
+            $result.CreatedAt | Should -Be ([datetime]$rawObject.created_at)
         }
         It 'Parses Features correctly'{
             $result.Features | Should -Be $rawObject.features
@@ -207,7 +207,7 @@ Describe 'ConvertTo-DigitalOceanDroplet' {
             $result.CreatedAt.GetType() | Should -Be 'DateTime'
         }
         It 'Parses CreatedAt correctly'{
-            $result.CreatedAt | Should -Be ([datetime]$rawObject.started_at)
+            $result.CreatedAt | Should -Be ([datetime]$rawObject.created_at)
         }
         It 'Parses Features correctly'{
             $result.Features | Should -Be $rawObject.features
