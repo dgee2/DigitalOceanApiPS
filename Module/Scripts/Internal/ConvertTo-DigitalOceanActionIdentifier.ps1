@@ -3,7 +3,7 @@ function ConvertTo-DigitalOceanActionIdentifier {
     param (
         # Parameter help description
         [Parameter(ValueFromPipeline=$true, Mandatory=$true)]
-        [System.Collections.Hashtable]
+        [PSCustomObject]
         $rawObject
     )
     begin {

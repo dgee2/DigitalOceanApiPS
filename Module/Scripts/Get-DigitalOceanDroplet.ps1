@@ -16,7 +16,7 @@ function Get-DigitalOceanDroplet {
     
     process {
         $response = Invoke-DigitalOceanApiCall -Token $Token -Url "droplets/$Id"
-        $response.droplet
+        $response.droplet | ConvertTo-DigitalOceanDroplet
     }
     
     end {
