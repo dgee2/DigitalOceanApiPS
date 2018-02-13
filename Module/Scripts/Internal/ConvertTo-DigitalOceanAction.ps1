@@ -2,8 +2,8 @@ function ConvertTo-DigitalOceanAction {
     [CmdletBinding()]
     param (
         # Parameter help description
-        [Parameter(ValueFromPipeline=$true, Mandatory=$true)]
-        [System.Collections.Hashtable]
+        [Parameter(Mandatory=$true, ValueFromPipeline=$true)]
+        [PSCustomObject]
         $rawObject
     )
     
