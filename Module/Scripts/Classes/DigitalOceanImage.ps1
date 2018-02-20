@@ -1,0 +1,4 @@
+Class DigitalOceanImage
+{
+    [int]$Id
+}
