@@ -1,0 +1,4 @@
+enum EDigitalOceanImageType {
+    Backup
+    Snapshot
+}

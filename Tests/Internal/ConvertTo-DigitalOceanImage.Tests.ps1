@@ -1,5 +1,6 @@
 Import-Module $PSScriptRoot/../../Module/DigitalOceanApi.psd1
 . $PSScriptRoot/../../Module/Scripts/Internal/ConvertTo-DigitalOceanImage.ps1
+. $PSScriptRoot/../../Module/Scripts/Enums/EDigitalOceanImageType.ps1
 $rawObject = @{
     id = 7555620
     name = "Nifty New Snapshot"
