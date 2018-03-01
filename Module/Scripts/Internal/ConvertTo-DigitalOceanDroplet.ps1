@@ -24,7 +24,7 @@ function ConvertTo-DigitalOceanDroplet {
             Features = $rawObject.features
             BackupIds = $rawObject.backup_ids
             SnapshotIds = $rawObject.snapshot_ids
-            Image = $rawObject.image
+            Image = $rawObject.image | ConvertTo-DigitalOceanImage
             VolumeIds = $rawObject.volume_ids
             Size = $rawObject.size
             SizeSlug = $rawObject.size_slug

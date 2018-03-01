@@ -1,5 +1,7 @@
 Import-Module $PSScriptRoot/../../Module/DigitalOceanApi.psd1
 . $PSScriptRoot/../../Module/Scripts/Internal/ConvertTo-DigitalOceanDroplet.ps1
+. $PSScriptRoot/../../Module/Scripts/Internal/ConvertTo-DigitalOceanImage.ps1
+. $PSScriptRoot/../Helpers/Test-DigitalOceanImage.ps1
 $rawObject = @{
     id = 3164494
     name = 'example.com'
@@ -148,8 +150,8 @@ Describe 'ConvertTo-DigitalOceanDroplet' {
         It 'Parses SnapshotIds correctly'{
             $result.SnapshotIds | Should -Be $rawObject.snapshot_ids
         }
-        It 'Parses Image correctly'{
-            $result.Image | Should -Be $rawObject.image
+        Context 'Parses Image correctly'{
+            $result.Image | Test-DigitalOceanImage -RawObject $rawObject.image
         }
         It 'Parses VolumeIds correctly'{
             $result.VolumeIds | Should -Be $rawObject.volume_ids
@@ -212,8 +214,8 @@ Describe 'ConvertTo-DigitalOceanDroplet' {
         It 'Parses SnapshotIds correctly'{
             $result.SnapshotIds | Should -Be $rawObject.snapshot_ids
         }
-        It 'Parses Image correctly'{
-            $result.Image | Should -Be $rawObject.image
+        Context 'Parses Image correctly'{
+            $result.Image | Test-DigitalOceanImage -RawObject $rawObject.image
         }
         It 'Parses VolumeIds correctly'{
             $result.VolumeIds | Should -Be $rawObject.volume_ids
