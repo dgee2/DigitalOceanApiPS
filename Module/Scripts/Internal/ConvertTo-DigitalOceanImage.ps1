@@ -9,18 +9,18 @@ function ConvertTo-DigitalOceanImage {
     begin {
     }
     process {
-        $ret = [DigitalOceanImage]::new()
-        $ret.Id = $rawObject.id
-        $ret.Name = $rawObject.name
-        $ret.Distribution = $rawObject.distribution
-        $ret.Slug = $rawObject.slug
-        $ret.Public = $rawObject.public
-        $ret.Regions = $rawObject.regions
-        $ret.CreatedAt = [datetime]$rawObject.created_at
-        $ret.Type = [EDigitalOceanImageType]$rawObject.type
-        $ret.MinDiskSize = $rawObject.min_disk_size
-        $ret.Size = $rawObject.size_gigabytes
-        $ret
+        New-Object PSObject -Property @{
+            Id = $rawObject.id
+            Name = $rawObject.name
+            Distribution = $rawObject.distribution
+            Slug = $rawObject.slug
+            Public = $rawObject.public
+            Regions = $rawObject.regions
+            CreatedAt = [datetime]$rawObject.created_at
+            Type = $rawObject.type
+            MinDiskSize = $rawObject.min_disk_size
+            Size = $rawObject.size_gigabytes
+        }
     }
     end {
     }

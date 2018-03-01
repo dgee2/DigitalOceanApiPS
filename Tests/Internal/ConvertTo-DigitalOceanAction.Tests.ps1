@@ -15,9 +15,6 @@ Describe 'ConvertTo-DigitalOceanAction' {
     Context 'Passed Single rawObject'{
         $result = ConvertTo-DigitalOceanAction $rawObject
 
-        It 'Returns a DigitalOceanAction instance'{
-            $result.GetType() | Should -Be 'DigitalOceanAction'
-        }
         It 'Parses Id correctly'{
             $result.Id | Should -Be $rawObject.id
         }
@@ -46,9 +43,6 @@ Describe 'ConvertTo-DigitalOceanAction' {
     Context 'Passed pipeline rawObject'{
         $result = $rawObject | ConvertTo-DigitalOceanAction
 
-        It 'Returns a DigitalOceanAction instance'{
-            $result.GetType() | Should -Be 'DigitalOceanAction'
-        }
         It 'Parses Id correctly'{
             $result.Id | Should -Be $rawObject.id
         }

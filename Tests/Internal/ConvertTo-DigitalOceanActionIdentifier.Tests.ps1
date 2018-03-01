@@ -9,9 +9,6 @@ Describe 'ConvertTo-DigitalOceanActionIdentifier' {
     Context 'Passed Single rawObject'{
         $result = ConvertTo-DigitalOceanActionIdentifier $rawObject
 
-        It 'Returns a DigitalOceanActionIdentifier instance'{
-            $result.GetType() | Should -Be 'DigitalOceanActionIdentifier'
-        }
         It 'Parses Id correctly'{
             $result.Id | Should -Be $rawObject.id
         }
@@ -22,9 +19,6 @@ Describe 'ConvertTo-DigitalOceanActionIdentifier' {
     Context 'Passed pipeline rawObject'{
         $result = $rawObject | ConvertTo-DigitalOceanActionIdentifier
 
-        It 'Returns a DigitalOceanActionIdentifier instance'{
-            $result.GetType() | Should -Be 'DigitalOceanActionIdentifier'
-        }
         It 'Parses Id correctly'{
             $result.Id | Should -Be $rawObject.id
         }

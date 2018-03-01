@@ -13,9 +13,6 @@ function Test-DigitalOceanImage {
     }
     
     process {
-        It 'Returns a DigitalOceanImage instance'{
-            $DigitalOceanImage.GetType() | Should -Be 'DigitalOceanImage'
-        }
         It 'Parses Id correctly' {
             $DigitalOceanImage.Id | Should -Be $RawObject.id
         }
@@ -40,11 +37,8 @@ function Test-DigitalOceanImage {
         It 'Parses CreatedAt correctly'{
             $DigitalOceanImage.CreatedAt | Should -Be ([datetime]$RawObject.created_at)
         }
-        It 'Type to EDigitalOceanImageType'{
-            $DigitalOceanImage.Type.GetType() | Should -Be 'EDigitalOceanImageType'
-        }
         It 'Parses Type correctly'{
-            $DigitalOceanImage.Type | Should -Be ([EDigitalOceanImageType]$RawObject.type)
+            $DigitalOceanImage.Type | Should -Be ($RawObject.type)
         }
         It 'Parses MinDiskSize correctly' {
             $DigitalOceanImage.MinDiskSize | Should -Be $RawObject.min_disk_size

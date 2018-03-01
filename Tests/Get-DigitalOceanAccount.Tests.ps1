@@ -27,9 +27,6 @@ InModuleScope DigitalOceanApi {
         }
         Context 'Response' {
             $response = Get-DigitalOceanAccount -Token $testToken
-            It 'Returns a DigitalOceanAccount instance'{
-                $response.GetType() | Should -Be 'DigitalOceanAccount'
-            }
             It 'Parses DropletLimit correctly'{
                 $response.DropletLimit | Should -Be $testResponse.account.droplet_limit
             }

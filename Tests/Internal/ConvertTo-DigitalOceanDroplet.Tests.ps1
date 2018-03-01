@@ -109,9 +109,6 @@ Describe 'ConvertTo-DigitalOceanDroplet' {
     Context 'Passed Single rawObject'{
         $result = ConvertTo-DigitalOceanDroplet $rawObject
 
-        It 'Returns a DigitalOceanDroplet instance'{
-            $result.GetType() | Should -Be 'DigitalOceanDroplet'
-        }
         It 'Parses Id correctly'{
             $result.Id | Should -Be $rawObject.id
         }
@@ -176,9 +173,6 @@ Describe 'ConvertTo-DigitalOceanDroplet' {
     Context 'Passed pipeline rawObject'{
         $result = $rawObject | ConvertTo-DigitalOceanDroplet
 
-        It 'Returns a DigitalOceanDroplet instance'{
-            $result.GetType() | Should -Be 'DigitalOceanDroplet'
-        }
         It 'Parses Id correctly'{
             $result.Id | Should -Be $rawObject.id
         }

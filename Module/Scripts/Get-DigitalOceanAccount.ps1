@@ -13,17 +13,15 @@ function Get-DigitalOceanAccount {
     process {
         $response = Invoke-DigitalOceanApiCall -Token $Token -Url "account"
         $account = $response.account
-
-        $ret = [DigitalOceanAccount]::new()
-        $ret.DropletLimit = $account.droplet_limit
-        $ret.FloatingIpLimit = $account.floating_ip_limit
-        $ret.Email = $account.email
-        $ret.UUID = $account.uuid
-        $ret.EmailVerified = $account.email_verified
-        $ret.Status = $account.status
-        $ret.StatusMessage = $account.status_message
-
-        $ret
+        New-Object PSObject -Property @{
+            DropletLimit = $account.droplet_limit
+            FloatingIpLimit = $account.floating_ip_limit
+            Email = $account.email
+            UUID = $account.uuid
+            EmailVerified = $account.email_verified
+            Status = $account.status
+            StatusMessage = $account.status_message
+        }
     }
     
     end {
