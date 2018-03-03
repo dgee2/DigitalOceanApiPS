@@ -47,7 +47,6 @@ InModuleScope DigitalOceanApi {
                 'nyc3'
             )
             created_at = '2014-10-17T20:24:33Z'
-            type = 'snapshot'
             min_disk_size = 20
             size_gigabytes = 2.34
         }

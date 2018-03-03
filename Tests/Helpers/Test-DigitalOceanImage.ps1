@@ -37,9 +37,6 @@ function Test-DigitalOceanImage {
         It 'Parses CreatedAt correctly'{
             $DigitalOceanImage.CreatedAt | Should -Be ([datetime]$RawObject.created_at)
         }
-        It 'Parses Type correctly'{
-            $DigitalOceanImage.Type | Should -Be ($RawObject.type)
-        }
         It 'Parses MinDiskSize correctly' {
             $DigitalOceanImage.MinDiskSize | Should -Be $RawObject.min_disk_size
         }
