@@ -1,6 +1,8 @@
 Import-Module $PSScriptRoot/../Module/DigitalOceanApi.psd1
 
 InModuleScope DigitalOceanApi {
+    . $PSScriptRoot/Helpers/Test-DigitalOceanDroplet.ps1
+
     $id = 36804636
     $testDroplet = @{
         id = 3164494
@@ -140,11 +142,7 @@ InModuleScope DigitalOceanApi {
                 }
             }
             Context 'Response' {
-                $response = Get-DigitalOceanDroplet -Token $testToken -Id $id
-
-                It 'Parses Id correctly'{
-                    $response.Id | Should -Be $testDroplet.id
-                }
+                Get-DigitalOceanDroplet -Token $testToken -Id $id | Test-DigitalOceanDroplet -RawObject $testDroplet
             }
         }
         Context 'Default Parameter Set' {
@@ -179,9 +177,7 @@ InModuleScope DigitalOceanApi {
                     It 'Contains the correct number'{
                         ($response.Droplets | Measure-Object).Count | Should -Be 1
                     }
-                    It 'Parses Id correctly'{
-                        $response.Droplets[0].Id | Should -Be $testDroplet.id
-                    }
+                    $response.Droplets[0] | Test-DigitalOceanDroplet -RawObject $testDroplet
                 }
                 Context 'TotalCount'{
                     It 'Parses TotalCount correctly'{

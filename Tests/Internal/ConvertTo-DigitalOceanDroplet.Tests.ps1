@@ -1,7 +1,8 @@
 Import-Module $PSScriptRoot/../../Module/DigitalOceanApi.psd1
 . $PSScriptRoot/../../Module/Scripts/Internal/ConvertTo-DigitalOceanDroplet.ps1
 . $PSScriptRoot/../../Module/Scripts/Internal/ConvertTo-DigitalOceanImage.ps1
-. $PSScriptRoot/../Helpers/Test-DigitalOceanImage.ps1
+. $PSScriptRoot/../Helpers/Test-DigitalOceanDroplet.ps1
+
 $rawObject = @{
     id = 3164494
     name = 'example.com'
@@ -109,131 +110,9 @@ $rawObject = @{
 }
 Describe 'ConvertTo-DigitalOceanDroplet' {
     Context 'Passed Single rawObject'{
-        $result = ConvertTo-DigitalOceanDroplet $rawObject
-
-        It 'Parses Id correctly'{
-            $result.Id | Should -Be $rawObject.id
-        }
-        It 'Parses Name correctly'{
-            $result.Name | Should -Be $rawObject.name
-        }
-        It 'Parses Memory correctly'{
-            $result.Memory | Should -Be $rawObject.memory
-        }
-        It 'Parses VCPUs correctly'{
-            $result.VCPUs | Should -Be $rawObject.vcpus
-        }
-        It 'Parses DiskSize correctly'{
-            $result.DiskSize | Should -Be $rawObject.disk
-        }
-        It 'Parses Locked correctly'{
-            $result.Locked | Should -Be $rawObject.locked
-        }
-        It 'Parses Status correctly'{
-            $result.Status | Should -Be $rawObject.status
-        }
-        It 'Parses Kernel correctly'{
-            $result.Kernel | Should -Be $rawObject.kernel
-        }
-        It 'CreatedAt to DateTime'{
-            $result.CreatedAt.GetType() | Should -Be 'DateTime'
-        }
-        It 'Parses CreatedAt correctly'{
-            $result.CreatedAt | Should -Be ([datetime]$rawObject.created_at)
-        }
-        It 'Parses Features correctly'{
-            $result.Features | Should -Be $rawObject.features
-        }
-        It 'Parses BackupIds correctly'{
-            $result.BackupIds | Should -Be $rawObject.backup_ids
-        }
-        It 'Parses SnapshotIds correctly'{
-            $result.SnapshotIds | Should -Be $rawObject.snapshot_ids
-        }
-        Context 'Parses Image correctly'{
-            $result.Image | Test-DigitalOceanImage -RawObject $rawObject.image
-        }
-        It 'Parses VolumeIds correctly'{
-            $result.VolumeIds | Should -Be $rawObject.volume_ids
-        }
-        It 'Parses Size correctly'{
-            $result.Size | Should -Be $rawObject.size
-        }
-        It 'Parses SizeSlug correctly'{
-            $result.SizeSlug | Should -Be $rawObject.size_slug
-        }
-        It 'Parses Networks correctly'{
-            $result.Networks | Should -Be $rawObject.networks
-        }
-        It 'Parses Region correctly'{
-            $result.Region | Should -Be $rawObject.region
-        }
-        It 'Parses Tags correctly'{
-            $result.Tags | Should -Be $rawObject.tags
-        }
+        ConvertTo-DigitalOceanDroplet $rawObject | Test-DigitalOceanDroplet -RawObject $rawObject
     }
     Context 'Passed pipeline rawObject'{
-        $result = $rawObject | ConvertTo-DigitalOceanDroplet
-
-        It 'Parses Id correctly'{
-            $result.Id | Should -Be $rawObject.id
-        }
-        It 'Parses Name correctly'{
-            $result.Name | Should -Be $rawObject.name
-        }
-        It 'Parses Memory correctly'{
-            $result.Memory | Should -Be $rawObject.memory
-        }
-        It 'Parses VCPUs correctly'{
-            $result.VCPUs | Should -Be $rawObject.vcpus
-        }
-        It 'Parses DiskSize correctly'{
-            $result.DiskSize | Should -Be $rawObject.disk
-        }
-        It 'Parses Locked correctly'{
-            $result.Locked | Should -Be $rawObject.locked
-        }
-        It 'Parses Status correctly'{
-            $result.Status | Should -Be $rawObject.status
-        }
-        It 'Parses Kernel correctly'{
-            $result.Kernel | Should -Be $rawObject.kernel
-        }
-        It 'CreatedAt to DateTime'{
-            $result.CreatedAt.GetType() | Should -Be 'DateTime'
-        }
-        It 'Parses CreatedAt correctly'{
-            $result.CreatedAt | Should -Be ([datetime]$rawObject.created_at)
-        }
-        It 'Parses Features correctly'{
-            $result.Features | Should -Be $rawObject.features
-        }
-        It 'Parses BackupIds correctly'{
-            $result.BackupIds | Should -Be $rawObject.backup_ids
-        }
-        It 'Parses SnapshotIds correctly'{
-            $result.SnapshotIds | Should -Be $rawObject.snapshot_ids
-        }
-        Context 'Parses Image correctly'{
-            $result.Image | Test-DigitalOceanImage -RawObject $rawObject.image
-        }
-        It 'Parses VolumeIds correctly'{
-            $result.VolumeIds | Should -Be $rawObject.volume_ids
-        }
-        It 'Parses Size correctly'{
-            $result.Size | Should -Be $rawObject.size
-        }
-        It 'Parses SizeSlug correctly'{
-            $result.SizeSlug | Should -Be $rawObject.size_slug
-        }
-        It 'Parses Networks correctly'{
-            $result.Networks | Should -Be $rawObject.networks
-        }
-        It 'Parses Region correctly'{
-            $result.Region | Should -Be $rawObject.region
-        }
-        It 'Parses Tags correctly'{
-            $result.Tags | Should -Be $rawObject.tags
-        }
+        $rawObject | ConvertTo-DigitalOceanDroplet | Test-DigitalOceanDroplet -RawObject $rawObject
     }
 }
