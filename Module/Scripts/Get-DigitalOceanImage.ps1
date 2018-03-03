@@ -16,7 +16,13 @@ function Get-DigitalOceanImage {
          # Parameter help description
          [Parameter(Mandatory=$false,ParameterSetName='Paging')]
          [int]
-         $PerPage
+         $PerPage,
+         # Parameter help description
+         [ValidateSet('distribution','application', IgnoreCase=$false)]
+         [Parameter(Mandatory=$false,ParameterSetName='Default')]
+         [Parameter(Mandatory=$false,ParameterSetName='Paging')]
+         [string]
+         $Type
     )
     
     begin {
@@ -37,11 +43,15 @@ function Get-DigitalOceanImage {
             if ($PerPage -gt 0) {
                 $query.per_page = $PerPage
             }
-            if($query.Count -gt 0) {
-                $uri += '?' + (($query.Keys | ForEach-Object { [uri]::EscapeDataString($_) + '=' + [uri]::EscapeDataString($query.$_) }) -join '&')
-            }
+        }
+        
+        if($Type -ne $null -and $Type.Length -gt 0) {
+            $query.type = $Type
         }
 
+        if($query.Count -gt 0) {
+            $uri += '?' + (($query.Keys | ForEach-Object { [uri]::EscapeDataString($_) + '=' + [uri]::EscapeDataString($query.$_) }) -join '&')
+        }
         $response = Invoke-DigitalOceanApiCall -Token $Token -Url $uri
         
         if($PSCmdlet.ParameterSetName -eq 'ID'){

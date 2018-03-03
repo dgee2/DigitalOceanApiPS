@@ -97,5 +97,20 @@ InModuleScope DigitalOceanApi {
                 }
             }
         }
+        Context 'Type' {
+            Mock Invoke-DigitalOceanApiCall -MockWith {$testListResponse}
+            Context 'Distribution'{
+                Get-DigitalOceanImage -Token $testToken -Type 'distribution'
+                It 'Sends to the correct url'{
+                    Assert-MockCalled Invoke-DigitalOceanApiCall -Exactly 1 -ParameterFilter { $Url -eq 'images?type=distribution' }
+                }
+            }
+            Context 'Application'{
+                Get-DigitalOceanImage -Token $testToken -Type 'application'
+                It 'Sends to the correct url'{
+                    Assert-MockCalled Invoke-DigitalOceanApiCall -Exactly 1 -ParameterFilter { $Url -eq 'images?type=application' }
+                }
+            }
+        }
     }
 }
