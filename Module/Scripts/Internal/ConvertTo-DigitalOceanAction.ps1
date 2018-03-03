@@ -11,17 +11,16 @@ function ConvertTo-DigitalOceanAction {
     }
     
     process {
-        $ret = [DigitalOceanAction]::new()
-        $ret.Id = $rawObject.id
-        $ret.Status = $rawObject.status
-        $ret.Type = $rawObject.type
-        $ret.StartedAt = [datetime]$rawObject.started_at
-        $ret.CompletedAt = [datetime]$rawObject.completed_at
-        $ret.ResourceId = $rawObject.resource_id
-        $ret.ResourceType = $rawObject.resource_type
-        $ret.Region = $rawObject.region_slug
-
-        $ret
+        New-Object PSObject -Property @{
+            Id = $rawObject.id
+            Status = $rawObject.status
+            Type = $rawObject.type
+            StartedAt = [datetime]$rawObject.started_at
+            CompletedAt = [datetime]$rawObject.completed_at
+            ResourceId = $rawObject.resource_id
+            ResourceType = $rawObject.resource_type
+            Region = $rawObject.region_slug
+        }
     }
     
     end {
