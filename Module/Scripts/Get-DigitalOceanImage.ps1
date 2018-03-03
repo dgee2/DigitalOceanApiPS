@@ -22,7 +22,12 @@ function Get-DigitalOceanImage {
          [Parameter(Mandatory=$false,ParameterSetName='Default')]
          [Parameter(Mandatory=$false,ParameterSetName='Paging')]
          [string]
-         $Type
+         $Type,
+         # Parameter help description
+         [Parameter(Mandatory=$false,ParameterSetName='Default')]
+         [Parameter(Mandatory=$false,ParameterSetName='Paging')]
+         [switch]
+         $Private
     )
     
     begin {
@@ -47,6 +52,10 @@ function Get-DigitalOceanImage {
         
         if($Type -ne $null -and $Type.Length -gt 0) {
             $query.type = $Type
+        }
+
+        if($Private){
+            $query.private = $true
         }
 
         if($query.Count -gt 0) {

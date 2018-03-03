@@ -112,5 +112,12 @@ InModuleScope DigitalOceanApi {
                 }
             }
         }
+        Context 'Private' {
+            Mock Invoke-DigitalOceanApiCall -MockWith {$testListResponse}
+            Get-DigitalOceanImage -Token $testToken -Private
+            It 'Sends to the correct url'{
+                Assert-MockCalled Invoke-DigitalOceanApiCall -Exactly 1 -ParameterFilter { $Url -eq 'images?private=true' }
+            }
+        }
     }
 }
