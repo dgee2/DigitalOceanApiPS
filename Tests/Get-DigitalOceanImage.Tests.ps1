@@ -4,11 +4,12 @@ InModuleScope DigitalOceanApi {
     . $PSScriptRoot/Helpers/Test-DigitalOceanImage.ps1
 
     $id = 6918990
+    $slug = 'ubuntu-16-04-x64'
     $testImage = @{
         id = $id
         name = '14.04 x64'
         distribution = 'Ubuntu'
-        slug = 'ubuntu-16-04-x64'
+        slug = $slug
         public = $true
         regions = @(
             'nyc1',
@@ -54,6 +55,21 @@ InModuleScope DigitalOceanApi {
             }
             Context 'Response' {
                 Get-DigitalOceanImage -Token $testToken -Id $id | Test-DigitalOceanImage -RawObject $testimage
+            }
+        }
+        Context 'Slug Parameter Set' {
+            Mock Invoke-DigitalOceanApiCall -MockWith {$testResponse}
+            Context 'Request'{
+                Get-DigitalOceanImage -Token $testToken -Slug $slug
+                It 'Passes the correct token'{
+                    Assert-MockCalled Invoke-DigitalOceanApiCall -Exactly 1 -ParameterFilter { $Token -eq $testToken }
+                }
+                It 'Sends to the correct url'{
+                    Assert-MockCalled Invoke-DigitalOceanApiCall -Exactly 1 -ParameterFilter { $Url -eq "images/$slug" }
+                }
+            }
+            Context 'Response' {
+                Get-DigitalOceanImage -Token $testToken -Slug $slug | Test-DigitalOceanImage -RawObject $testimage
             }
         }
         Context 'Default Parameter Set' {

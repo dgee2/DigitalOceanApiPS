@@ -10,6 +10,10 @@ function Get-DigitalOceanImage {
          [int]
          $Id,
          # Parameter help description
+         [Parameter(Mandatory=$false,ParameterSetName='Slug')]
+         [string]
+         $Slug,
+         # Parameter help description
          [Parameter(Mandatory=$false,ParameterSetName='Paging')]
          [int]
          $Page,
@@ -38,6 +42,9 @@ function Get-DigitalOceanImage {
         if($PSCmdlet.ParameterSetName -eq 'ID'){
             $uri += "/$Id"
         }
+        if($PSCmdlet.ParameterSetName -eq 'Slug'){
+            $uri += "/$Slug"
+        }
 
         $query = @{}
 
@@ -63,7 +70,7 @@ function Get-DigitalOceanImage {
         }
         $response = Invoke-DigitalOceanApiCall -Token $Token -Url $uri
         
-        if($PSCmdlet.ParameterSetName -eq 'ID'){
+        if($PSCmdlet.ParameterSetName -eq 'ID' -or $PSCmdlet.ParameterSetName -eq 'Slug'){
             $response.image | ConvertTo-DigitalOceanImage
         } else {
             $images = $response.images | ConvertTo-DigitalOceanImage
